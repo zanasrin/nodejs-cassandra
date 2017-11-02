@@ -6,14 +6,7 @@
   "dependencies": {
     "assert": "^1.4.1",
     "async": "^2.5.0",
-    "cassandra-driver": {
-      "integrity": "sha1-ek0no2Tjm9El5LRWTTDDYUXXY14=",
-      "requires": {
-        "long": "2.4.0"
-      },
-      "resolved": "https://registry.npmjs.org/cassandra-driver/-/cassandra-driver-3.3.0.tgz",
-      "version": "3.3.0"
-    },
+    "cassandra-driver": "^3.3.0",
     "long": {
       "integrity": "sha1-n6GAux2VAM3CnEFWdmoZleH0Uk8=",
       "resolved": "https://registry.npmjs.org/long/-/long-2.4.0.tgz",
