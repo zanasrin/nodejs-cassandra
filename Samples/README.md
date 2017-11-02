@@ -1,4 +1,3 @@
-"# nodejs-cassandra" 
 ---
 services: cosmos-db
 platforms: nodejs
@@ -23,7 +22,8 @@ This quickstart demonstrates how to use an existing Cassandra app written in Nod
 
 	```
 	config.username = "~your DocumentDB endpoint here~";
-	config.password = "~your auth key here~";	```
+	config.password = "~your auth key here~";
+	```
 
 3. Run `npm install` in a terminal to install required npm modules
  
