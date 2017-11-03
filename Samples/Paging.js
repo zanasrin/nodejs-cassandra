@@ -103,8 +103,8 @@ function insert(next) {
     console.log("\n\nSelect ALL");
     var query = 'SELECT * FROM Electricity.Consumption';
     console.log("CityName | Month | Usage");
-    const options = { prepare : true , fetchSize : 100 };
-    client.eachRow(query, options, function (n, row) {
+    const options = { prepare : true , fetchSize : 150 };
+    client.eachRow(query, [], options, function (n, row) {
          console.log("Row id: %d %s | %s | %d | %d", n, row.city, row.month, row.year, row.usage);
       }, function (err, result) {
          console.log("Page Retrieved %s", result.pageState);
