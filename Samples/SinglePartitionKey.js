@@ -88,7 +88,7 @@ function UpdateSingleRow(next) {
 },
 function SelectSingleRow(next) {
     console.log("\Select Single Row");
-    var query = 'Select * from cycling.cyclist_name set where id = 1';
+    var query = 'Select * from cycling.cyclist_name where id = 1';
     client.execute(query, function (err, result) {
         if (err) return next(err);
         const row = result.rows[0];
