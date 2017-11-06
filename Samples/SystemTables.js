@@ -1,4 +1,3 @@
-"use strict";
 const cassandra = require('cassandra-driver');
 const async = require('async');
 const assert = require('assert');
