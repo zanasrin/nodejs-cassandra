@@ -17,7 +17,7 @@ async.series([
     client.execute(query, { prepare: true}, function (err, result) {
       if (err) return next(err);
       result.rows.forEach(function(row) {
-        console.log('Obtained row: %s %s',row.keyspace_name, row.strategy_option);
+        console.log('Obtained row: %s',row.keyspace_name);
       }, this);
       next();
     });
