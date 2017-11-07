@@ -17,7 +17,7 @@ async.series([
     console.log("created keyspace");    
   },
   function createTable(next) {
-    var query = "CREATE TABLE IF NOT EXISTS cycling.cyclist_name (id int, lastname text, firstname text, PRIMARY KEY id);";
+    var query = "CREATE TABLE IF NOT EXISTS cycling.cyclist_name (id int, lastname text, firstname text, PRIMARY KEY (id));";
     client.execute(query, next);
     console.log("created table");
   },
