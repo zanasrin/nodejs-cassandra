@@ -66,7 +66,7 @@ async.series([
   },
   function selectUsingSinglePartitionKey(next) {
     console.log("\n\nSelect Using One Partition key");
-    var query = 'SELECT * FROM cycling.rank_by_year_and_name where race_year = 2014';
+    var query = 'SELECT * FROM cycling.rank_by_year_and_name where race_year = 2014 ALLOW FILTERING';
     client.execute(query, { prepare: true}, function (err, result) {
         if (err) return next(err);
         result.rows.forEach(function(row) {
@@ -88,7 +88,7 @@ async.series([
   },
   function AllowFiltering(next) {
     console.log("\n\nAllow filtering");
-    var query = 'SELECT * FROM cycling.rank_by_year_and_name where cyclist_name = \'Daniel MARTIN\'';
+    var query = 'SELECT * FROM cycling.rank_by_year_and_name where cyclist_name = \'Daniel MARTIN\' ALLOW FILTERING';
     client.execute(query, { prepare: true}, function (err, result) {
         if (err) return next(err);
         const row = result.rows[0];
@@ -106,18 +106,6 @@ async.series([
     var query = 'Update cycling.rank_by_year_and_name set rank = -1  where race_year = 2015 and race_name = \'Tour of Japan - Stage 4 - Minami > Shinshu\'';
     client.execute(query, { prepare: true}, 
         next);
-  },
-  function OrderByDesc(next) {
-    console.log("\n\nOrder by Descending");
-    var query = 'SELECT * FROM cycling.rank_by_year_and_name order by rank DESC';
-    client.execute(query, { prepare: true}, function (err, result) {
-      if (err) return next(err);
-      assert.equal(result.rows[0]['rank'], 3);
-      result.rows.forEach(function(row) {
-        console.log('Obtained row: %d %s %s %d',row.race_year, row.race_name, row.cyclist_name, row.rank);
-      }, this);
-      next();
-    });
   }
 ], function (err) {
   if (err) {
