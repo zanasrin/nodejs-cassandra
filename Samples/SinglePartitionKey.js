@@ -73,7 +73,7 @@ async.series([
   },
   function AllowFiltering(next) {
     console.log("\n\nAllow filtering");
-    var query = 'SELECT * FROM cycling.cyclist_name where firstname = \'Daniel\'';
+    var query = 'SELECT * FROM cycling.cyclist_name where firstname = \'Daniel\' ALLOW FILTERING';
     client.execute(query, { prepare: true}, function (err, result) {
         if (err) return next(err);
         const row = result.rows[0];
