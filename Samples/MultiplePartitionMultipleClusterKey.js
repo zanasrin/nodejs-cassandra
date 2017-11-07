@@ -63,7 +63,7 @@ async.series([
   },
   function selectUsingSinglePartitionKey(next) {
     console.log("\n\nSelect Using One Partition key");
-    var query = 'SELECT * FROM Music.playlists where artist_name = \'Maroon 5\'';
+    var query = 'SELECT * FROM Music.playlists where artist_name = \'Maroon 5\' ALLOW FILTERING';
     client.execute(query, { prepare: true}, function (err, result) {
         if (err) return next(err);
         result.rows.forEach(function(row) {
@@ -102,7 +102,7 @@ async.series([
   },
   function selectComparisonOperator(next) {
     console.log("\nSelect with comparison operator");
-    var query = 'SELECT * FROM Music.playlists where votes > 4000';
+    var query = 'SELECT * FROM Music.playlists where votes > 4000 ALLOW FILTERING';
     client.execute(query, { prepare: true}, function (err, result) {
       if (err) return next(err);
       result.rows.forEach(function(row) {
