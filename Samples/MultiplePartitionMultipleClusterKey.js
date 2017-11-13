@@ -4,7 +4,7 @@ const assert = require('assert');
 var config = require('./config');
 var fs = require('fs'); 
 
-var certificate = fs.readFileSync('C:\\Users\\zanasrin.FAREAST\\Desktop\\localhost.cer', 'utf8');
+var certificate = fs.readFileSync(config.cert, 'utf8');
 var options = {
     cert: certificate,
     secureProtocol: 'TLSv1_2_method'
