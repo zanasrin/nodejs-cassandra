@@ -1,11 +1,18 @@
 const cassandra = require('cassandra-driver');
 const async = require('async');
 var config = require('./config');
+var fs = require('fs'); 
+
+var certificate = fs.readFileSync('path to cert', 'utf8');
+var options = {
+    cert: certificate,
+    secureProtocol: 'TLSv1_2_method'
+  };
 
 const authProviderLocalCassandra =
- new cassandra.auth.PlainTextAuthProvider(config.username, config.password);
-const client = new cassandra.Client({contactPoints: [config.contactPoint], authProvider: authProviderLocalCassandra});
-
+new cassandra.auth.PlainTextAuthProvider(config.username, config.password);
+const client = new cassandra.Client({contactPoints: [config.contactPoint], authProvider: authProviderLocalCassandra, sslOptions: options});
+  
 async.series([
   function connect(next) {
     client.connect(next);
@@ -24,12 +31,12 @@ async.series([
 
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     var queries = [];
-    for(i = 0; i < 100; i++)
+    for(i = 0; i < 50; i++)
     {
         var dateObj = new Date().getMonth();
         var query = {
             query: 'INSERT INTO Electricity.Consumption (city, month, usage, year) VALUES (?,?,?,?)',
-            params: ['London', months[(dateObj+i)%12], 1000+(10*(i+1)), 2016-(i/12)]
+            params: ['London', months[(dateObj+i)%12], 500+(10*(i+1)), 2016-(i/12)]
         }
         queries.push(query);
     }
@@ -39,7 +46,7 @@ function insert(next) {
     
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     var queries = [];      
-    for(i = 0; i < 100; i++)
+    for(i = 0; i < 50; i++)
     {
         var dateObj = new Date().getMonth();
         var query = {
@@ -55,7 +62,7 @@ function insert(next) {
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     var queries = [];
       
-    for(i = 0; i < 100; i++)
+    for(i = 0; i < 50; i++)
     {
         var dateObj = new Date().getMonth();
         var query = {
@@ -71,7 +78,7 @@ function insert(next) {
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     var queries = [];
       
-    for(i = 0; i < 100; i++)
+    for(i = 0; i < 50; i++)
     {
         var dateObj = new Date().getMonth();
         var query = {
@@ -87,7 +94,7 @@ function insert(next) {
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     var queries = [];
       
-    for(i = 0; i < 100; i++)
+    for(i = 0; i < 50; i++)
     {
         var dateObj = new Date().getMonth();
         var query = {
@@ -103,7 +110,7 @@ function insert(next) {
     console.log("\n\nSelect ALL");
     var query = 'SELECT * FROM Electricity.Consumption';
     console.log("CityName | Month | Usage");
-    const options = { prepare : true , fetchSize : 150 };
+    const options = { prepare : true , fetchSize : 25 };
     client.eachRow(query, [], options, function (n, row) {
          console.log("Row id: %d %s | %s | %d | %d", n, row.city, row.month, row.year, row.usage);
       }, function (err, result) {
