@@ -31,7 +31,7 @@ async.series([
 
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     var queries = [];
-    for(i = 0; i < 50; i++)
+    for(i = 0; i < 25;i++)
     {
         var dateObj = new Date().getMonth();
         var query = {
@@ -46,7 +46,7 @@ function insert(next) {
     
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     var queries = [];      
-    for(i = 0; i < 50; i++)
+    for(i = 0; i < 25;i++)
     {
         var dateObj = new Date().getMonth();
         var query = {
@@ -62,7 +62,7 @@ function insert(next) {
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     var queries = [];
       
-    for(i = 0; i < 50; i++)
+    for(i = 0; i < 25;i++)
     {
         var dateObj = new Date().getMonth();
         var query = {
@@ -78,7 +78,7 @@ function insert(next) {
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     var queries = [];
       
-    for(i = 0; i < 50; i++)
+    for(i = 0; i < 25;i++)
     {
         var dateObj = new Date().getMonth();
         var query = {
@@ -94,7 +94,7 @@ function insert(next) {
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     var queries = [];
       
-    for(i = 0; i < 50; i++)
+    for(i = 0; i < 25;i++)
     {
         var dateObj = new Date().getMonth();
         var query = {
