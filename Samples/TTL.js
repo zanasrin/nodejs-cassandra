@@ -5,7 +5,7 @@ const sleep = require('system-sleep');
 var config = require('./config');
 var fs = require('fs'); 
 
-var certificate = fs.readFileSync('path to cert', 'utf8');
+var certificate = fs.readFileSync(config.cert, 'utf8');
 var options = {
     cert: certificate,
     secureProtocol: 'TLSv1_2_method'
