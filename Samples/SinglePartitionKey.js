@@ -2,11 +2,18 @@ const cassandra = require('cassandra-driver');
 const async = require('async');
 const assert = require('assert');
 var config = require('./config');
+var fs = require('fs'); 
+
+var certificate = fs.readFileSync('path to cert', 'utf8');
+var options = {
+    cert: certificate,
+    secureProtocol: 'TLSv1_2_method'
+  };
 
 const authProviderLocalCassandra =
 new cassandra.auth.PlainTextAuthProvider(config.username, config.password);
-const client = new cassandra.Client({contactPoints: [config.contactPoint], authProvider: authProviderLocalCassandra});
-
+const client = new cassandra.Client({contactPoints: [config.contactPoint], authProvider: authProviderLocalCassandra, sslOptions: options});
+  
 async.series([
   function connect(next) {
     client.connect(next);
