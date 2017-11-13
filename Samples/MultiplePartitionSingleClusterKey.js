@@ -2,11 +2,18 @@ const cassandra = require('cassandra-driver');
 const async = require('async');
 const assert = require('assert');
 var config = require('./config');
+var fs = require('fs'); 
+
+var certificate = fs.readFileSync('path to cert', 'utf8');
+var options = {
+    cert: certificate,
+    secureProtocol: 'TLSv1_2_method'
+  };
 
 const authProviderLocalCassandra =
 new cassandra.auth.PlainTextAuthProvider(config.username, config.password);
-const client = new cassandra.Client({contactPoints: [config.contactPoint], authProvider: authProviderLocalCassandra});
-
+const client = new cassandra.Client({contactPoints: [config.contactPoint], authProvider: authProviderLocalCassandra, sslOptions: options});
+  
 async.series([
   function connect(next) {
     client.connect(next);
@@ -94,19 +101,7 @@ async.series([
         const row = result.rows[0];
         console.log('Obtained row: %d %s %s %d',row.race_year, row.race_name, row.cyclist_name, row.rank);
         next();
-  })},
-  function UpdateRows(next) {
-    console.log("\n\nUpdate Multiple Rows");
-    var query = 'Update cycling.rank_by_year_and_name set rank = -10 where race_year = 2014 and race_name = \'4th Tour of Beijing\'';
-    client.execute(query, { prepare: true}, 
-        next);
-  },
-  function UpdateSingleRow(next) {
-    console.log("\n\nUpdate One Row");
-    var query = 'Update cycling.rank_by_year_and_name set rank = -1  where race_year = 2015 and race_name = \'Tour of Japan - Stage 4 - Minami > Shinshu\'';
-    client.execute(query, { prepare: true}, 
-        next);
-  }
+  })}
 ], function (err) {
   if (err) {
     console.error('There was an error', err.message, err.stack);
