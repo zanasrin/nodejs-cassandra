@@ -1,6 +1,6 @@
 ---
 services: cosmos-db
-platforms: nodejs
+platforms: node.js
 author: zanasrin
 ---
 
